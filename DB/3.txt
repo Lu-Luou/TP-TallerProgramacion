@@ -127,7 +127,6 @@ aguay,6
 aguda,0
 agudo,6
 aguin,4
-agüio,9
 aguja,5
 aguti,0
 ahilo,1
@@ -382,7 +381,6 @@ argon,9
 argos,9
 argot,7
 argue,1
-argüe,3
 arida,4
 arido,6
 aries,8
@@ -2171,8 +2169,6 @@ guaya,2
 guayo,0
 guban,6
 gubia,3
-güera,0
-güero,6
 gueto,9
 guiar,3
 guida,0
@@ -2180,17 +2176,13 @@ guido,4
 guifa,6
 guija,3
 guijo,5
-güila,2
 guion,7
-güira,2
 guiri,8
-güiro,9
 guisa,3
 guiso,5
 guita,7
 guite,4
 guito,2
-güito,7
 gular,8
 gules,6
 gumia,6
@@ -3901,7 +3893,6 @@ rieto,2
 rifar,4
 rifle,2
 rigor,4
-rigüe,0
 rilar,2
 rimar,5
 rimel,4

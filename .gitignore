@@ -1,5 +1,8 @@
 .vscode/
 
+ourWordle
+
 *.o
 *.out
 *.log
+*.txt
