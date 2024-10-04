@@ -1,2 +1,2 @@
 # TP-TallerProgramacion - Wordle autónomo
-![Logo C] {DB/images.png}
+![Logo C](DB/images.png)
