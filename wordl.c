@@ -1,6 +1,4 @@
 #include "wordl.h"
-#include "ed1.c"
-#include "machine.c"
 
 char* getWord(char const **arg){
     if(strlen(arg[1]) != SIZE){
