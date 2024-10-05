@@ -1,11 +1,8 @@
-#ifndef machine_h
-#define machine_h
+#ifndef __MACHINE_H__
+#define __MACHINE_H__
 
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-#include <time.h>
+#include <stdlib.h>     
 #include "ed2.h"
 
 

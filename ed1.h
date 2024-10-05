@@ -1,17 +1,22 @@
-#ifndef ed1_H
-#define ed1_H
+#ifndef __ED1_H__
+#define __ED1_H__
 
 #include <stdio.h>
-#include <stdbool.h>
-#include <string.h>
+#include <stdlib.h>
 
 #define SIZE 5
 #define MAX_WORDS 6
 
+#ifdef _WIN32_
+    #define CLEAR "cls"
+#else
+    #define CLEAR "clear"
+#endif
+
 typedef struct letras {
     char ch;
-    bool green;
-    bool yellow;
+    int green;
+    int yellow;
 } Words;
 
 typedef struct palabras {
@@ -22,7 +27,11 @@ typedef struct palabras {
 
 void start(Wordle * game);
 
-void flags(Wordle * game, char * word, char * secret);
+void plays(Wordle * game, char * word, char * secret);
+
+void board(Wordle * flags);
+
+int win(Wordle * flags);
 
 
 #endif

@@ -1,11 +1,10 @@
-#ifndef world_H
-#define world_H
+#ifndef __WORDL_H__
+#define __WORDL_H__
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include <unistd.h>
-#include <time.h>
+#include <string.h>
 #include "ed1.h"
 #include "machine.h"
 
@@ -21,23 +20,8 @@
 #define BG_BLACK  "\033[40m"
 #define BG_WHITE  "\x1b[47m"
 
-//consts
-#ifdef _WIN32_
-    #define CLEAR "cls"
-#else
-    #define CLEAR "clear"
-#endif
-
 //funciones
 char* getWord(char const **arg);
-
-int* review(char * word, char * secret);
-
-int win(int * flags);
-
-void showBoard (char * word, int * flags);
-
-void freeMemory(char * arg1, int * arg2);
 
 
 #endif

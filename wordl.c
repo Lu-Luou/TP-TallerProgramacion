@@ -11,41 +11,8 @@ char* getWord(char const **arg){
     return str;
 }
 
-int* review(char * word, char * secret){
-    int * buff = (int *) malloc(SIZE * sizeof(int));
 
-    for(int i = 0; i < SIZE; i ++){    
-        if(word[i] == secret[i])
-            buff[i] = 1;
-        else{
-            buff[i] = (strchr(secret, word[i]) != NULL) ? 5 : 0;
-        }
-    }
-    return buff;
-}
-
-int win(int * flags){
-    int count = 0;
-    for(int i = 0; i < SIZE; i++){
-        count += flags[i];
-    }
-
-    return count == 5 ? 1 : 0;
-}
-
-void showBoard (char * word, int * flags){
-    system(CLEAR);
-}
-
-void freeMemory(char * arg1, int * arg2){
-    free(arg1);
-    arg1 = NULL;
-
-    free(arg2);
-    arg2 = NULL;
-}
-
-int main (int argc, char const **argv){ //aun no se implemento la estructura de datos from "ed1"
+int main(int argc, char const **argv){
     if(argc < 1){
         printf("Se necesita una palabra de 5 letras");
         return 0;
@@ -57,10 +24,12 @@ int main (int argc, char const **argv){ //aun no se implemento la estructura de 
 
     char* secret = getWord(argv);
     char word[SIZE];
-    int* flags = NULL;
+
+    Wordle flags[MAX_WORDS];
+    start(flags);
 
     for(int i = 0; i < MAX_WORDS; i ++){
-        showBoard(word, flags);
+        board(flags);
 
         printf("Ingrese una palabra de 5 letras: \n");
         scanf("%s",word);
@@ -72,17 +41,17 @@ int main (int argc, char const **argv){ //aun no se implemento la estructura de 
             }
         }
 
-        flags = review(word, secret);
+        plays(flags, word, secret);
 
         if(win(flags)){
-            showBoard(word, flags);
+            board(flags);
             printf("\nWinner!!\n");
             return 0;
         }
     }
-    showBoard(word, flags);
+    board(flags);
     printf("\nLoser boo boo\n");
 
-    freeMemory(secret, flags); //consultar si funciona
+    free(secret);
     return 0;
 }
