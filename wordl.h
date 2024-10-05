@@ -22,9 +22,6 @@
 #define BG_WHITE  "\x1b[47m"
 
 //consts
-#define SIZE 5
-#define MAX_WORDS 6
-
 #ifdef _WIN32_
     #define CLEAR "cls"
 #else
@@ -37,6 +34,10 @@ char* getWord(char const **arg);
 int* review(char * word, char * secret);
 
 int win(int * flags);
+
+void showBoard (char * word, int * flags);
+
+void freeMemory(char * arg1, int * arg2);
 
 
 #endif

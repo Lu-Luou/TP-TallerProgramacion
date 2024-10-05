@@ -4,7 +4,7 @@
 
 char* getWord(char const **arg){
     if(strlen(arg[1]) != SIZE){
-        printf("Se necesita una palabra de 5 letras");
+        printf("Necesitamos una palabra de 5 letras");
         return NULL;
     }
 
@@ -35,39 +35,56 @@ int win(int * flags){
     return count == 5 ? 1 : 0;
 }
 
-int main (int argc, char const **argv){
+void showBoard (char * word, int * flags){
+    system(CLEAR);
+}
+
+void freeMemory(char * arg1, int * arg2){
+    free(arg1);
+    arg1 = NULL;
+
+    free(arg2);
+    arg2 = NULL;
+}
+
+int main (int argc, char const **argv){ //aun no se implemento la estructura de datos from "ed1"
     if(argc < 1){
-        printf("Se necesita una base de datos");
+        printf("Se necesita una palabra de 5 letras");
         return 0;
     }
+    if(strlen(argv[1]) != 5){
+        printf("Se necesita una palabra de 5 letras");
+        return 0;
+    }       
 
     char* secret = getWord(argv);
     char word[SIZE];
-    int* flags;
+    int* flags = NULL;
 
     for(int i = 0; i < MAX_WORDS; i ++){
-        printf("Ingrese una palabra para empezar de 5 letras: \n");
+        showBoard(word, flags);
+
+        printf("Ingrese una palabra de 5 letras: \n");
         scanf("%s",word);
         if(strlen(word) != 5){
             while(strlen(word) != 5){
-                printf("Ingrese una palabra para empezar de 5 letras: \n");
+                system(CLEAR);
+                printf("ERROR: Ingrese una palabra de 5 letras: \n");
                 scanf("%5s",word);
             }
         }
 
         flags = review(word, secret);
 
-        for(int i = 0; i < SIZE; i++){
-            printf("%d", flags[i]);
-        }
-        printf("\n");
-
         if(win(flags)){
+            showBoard(word, flags);
             printf("\nWinner!!\n");
             return 0;
         }
     }
-
+    showBoard(word, flags);
     printf("\nLoser boo boo\n");
+
+    freeMemory(secret, flags); //consultar si funciona
     return 0;
 }
