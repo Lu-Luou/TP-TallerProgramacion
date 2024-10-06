@@ -1,6 +1,6 @@
 #include "wordl.h"
 
-char* getWord(char const **arg){
+char* getWord(char const ** arg){
     if(strlen(arg[1]) != SIZE){
         printf("Necesitamos una palabra de 5 letras");
         return NULL;
@@ -12,7 +12,7 @@ char* getWord(char const **arg){
 }
 
 
-int main(int argc, char const **argv){
+int main(int argc, const char ** argv){
     if(argc < 1){
         printf("Se necesita una palabra de 5 letras");
         return 0;
@@ -29,19 +29,22 @@ int main(int argc, char const **argv){
     start(flags);
 
     for(int i = 0; i < MAX_WORDS; i ++){
-        board(flags);
+        //board(flags);
 
         printf("Ingrese una palabra de 5 letras: \n");
         scanf("%s",word);
-        if(strlen(word) != 5){
-            while(strlen(word) != 5){
-                system(CLEAR);
-                printf("ERROR: Ingrese una palabra de 5 letras: \n");
-                scanf("%5s",word);
-            }
+        while(strlen(word) != 5){
+            system(CLEAR);
+            printf("ERROR: Ingrese una palabra de 5 letras: \n");
+            scanf("%5s",word);
         }
 
-        plays(flags, word, secret);
+        plays(&flags[i], word, secret);
+        // debug flags
+        /*for(int j = 0; j < SIZE; j ++){
+            printf("%c - %d", flags[i].chs[j].ch, flags[i].chs[j].green ? 1 : (flags[i].chs[j].yellow ? 5 : 0));
+        }
+        printf("\n");*/
 
         if(win(flags)){
             board(flags);
