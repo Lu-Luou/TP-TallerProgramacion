@@ -21,7 +21,11 @@
 #define BG_WHITE  "\x1b[47m"
 
 //funciones
-char* getWord(char const **arg);
+char* getSecret(char const **arg);
+
+char* getWord();
+
+void debugFlags(Wordle * flags);
 
 
 #endif

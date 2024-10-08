@@ -1,6 +1,6 @@
 #include "wordl.h"
 
-char* getWord(char const ** arg){
+char* getSecret(char const ** arg){
     if(strlen(arg[1]) != SIZE){
         printf("Necesitamos una palabra de 5 letras");
         return NULL;
@@ -9,6 +9,29 @@ char* getWord(char const ** arg){
     char* str = (char *) malloc(SIZE * sizeof(char));
     strcpy(str, arg[1]);
     return str;
+}
+
+char* getWord(){
+    char * word = (char *) malloc(SIZE * sizeof(char));
+
+    printf("Ingrese una palabra de 5 letras: \n");
+    scanf("%s",word);
+    while(strlen(word) != 5){
+        system(CLEAR);
+        printf("ERROR: Ingrese una palabra de 5 letras: \n");
+        scanf("%5s",word);
+    }
+    return word;
+}
+
+void debugFlags(Wordle * flags){
+    for(int j = 0; j < SIZE; j ++){
+        printf("%c - %d",
+            flags->chs[j].ch,
+            flags->chs[j].green ? 1 : (flags->chs[j].yellow ? 5 : 0)
+            );
+    }
+    printf("\n");
 }
 
 
@@ -22,8 +45,8 @@ int main(int argc, const char ** argv){
         return 0;
     }       
 
-    char* secret = getWord(argv);
-    char word[SIZE];
+    char* secret = getSecret(argv);
+    char* word = (char *) malloc(SIZE * sizeof(char));
 
     Wordle flags[MAX_WORDS];
     start(flags);
@@ -31,20 +54,10 @@ int main(int argc, const char ** argv){
     for(int i = 0; i < MAX_WORDS; i ++){
         //board(flags);
 
-        printf("Ingrese una palabra de 5 letras: \n");
-        scanf("%s",word);
-        while(strlen(word) != 5){
-            system(CLEAR);
-            printf("ERROR: Ingrese una palabra de 5 letras: \n");
-            scanf("%5s",word);
-        }
+        word = getWord();
 
         plays(&flags[i], word, secret);
-        // debug flags
-        /*for(int j = 0; j < SIZE; j ++){
-            printf("%c - %d", flags[i].chs[j].ch, flags[i].chs[j].green ? 1 : (flags[i].chs[j].yellow ? 5 : 0));
-        }
-        printf("\n");*/
+        //debugFlags(&flags[i]);
 
         if(win(flags)){
             board(flags);
@@ -55,6 +68,7 @@ int main(int argc, const char ** argv){
     board(flags);
     printf("\nLoser boo boo\n");
 
+    free(word);
     free(secret);
     return 0;
 }

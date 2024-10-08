@@ -10,23 +10,28 @@ void start(Wordle * game){
 }
 
 void plays(Wordle * game, char * word, char * secret){
-    for(int i = 0; i < MAX_WORDS; i++){
+    for(int i = 0; i < SIZE; i++){
         game->chs[i].ch = word[i];
+        
+        isGreen(&game->chs[i], word[i], secret[i]);
+        isYellow(game, word[i], secret, i);
+    }
+    game->try++;//dudoso
+}
 
-        if(word[i] == secret[i]){
-            game->chs[i].green = 1;
-        } else{
-            game->chs[i].green = 0;
+void isGreen(Letter * chs, char ch, char secret){
+    if(ch == secret)
+        chs->green = 1;
+}
 
-            for(int j = 0; j < MAX_WORDS; j++){
-                if(secret[i] == word[j]){
-                    game->chs[j].yellow = 1;
-                    break;
-                }
-            }
+void isYellow(Wordle * game, char ch, char * secret, int i){
+    if(!(game->chs[i].green)){
+        int j = 0;
+        for(; j < SIZE && (secret[j] != ch); j++){
+            if(secret[j] == ch && (ch != game->chs[j].ch))
+                game->chs[i].yellow = 1;
         }
     }
-    game->try++;
 }
 
 void board(Wordle * flags){

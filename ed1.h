@@ -17,10 +17,10 @@ typedef struct letras {
     char ch;
     int green;
     int yellow;
-} Words;
+} Letter;
 
 typedef struct palabras {
-    Words chs[SIZE];
+    Letter chs[SIZE];
     int try;
 } Wordle;
 
@@ -28,6 +28,10 @@ typedef struct palabras {
 void start(Wordle * game);
 
 void plays(Wordle * game, char * word, char * secret);
+
+void isGreen(Letter * game, char ch, char secret);
+
+void isYellow(Wordle * game, char ch, char * secret, int i);
 
 void board(Wordle * flags);
 
