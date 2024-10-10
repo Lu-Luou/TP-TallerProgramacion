@@ -16,9 +16,11 @@ char* getWord(){
 
     printf("Ingrese una palabra de 5 letras: \n");
     scanf("%s",word);
+    getchar();
     while(strlen(word) != 5){
         printf("ERROR: Ingrese una palabra de 5 letras: \n");
         scanf("%5s",word);
+        getchar();
     }
     return word;
 }
@@ -42,12 +44,12 @@ int main(int argc, const char ** argv){
 
     int intentos = 0;
     for(; intentos < MAX_WORDS; intentos ++){
-        //board(flags, intentos);
+        board(flags, intentos);
 
         word = getWord();
 
-        plays(&flags[intentos], word, secret, intentos);
-        debugFlags(&flags[intentos]);
+        plays(&flags[intentos], word, secret, intentos); //stack smashing when i put at least 2 worse words and then i win the game
+        //debugFlags(&flags[intentos]);
 
         if(win(&flags[intentos])){
             board(flags, intentos);

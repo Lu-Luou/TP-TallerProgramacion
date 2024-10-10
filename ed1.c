@@ -11,11 +11,14 @@ void start(Wordle *game) {
 }
 
 void plays(Wordle * game, char * word, char * secret, int try){
-    for (int i = 0; i < SIZE; i++){
+    for(int i = 0; i < SIZE; i++){
         game[try].chs[i].ch = word[i];
 
         isGreen(&game[try].chs[i], word[i], secret[i]);
-        isYellow(&game[try], game[try].chs[i].ch, secret, i);
+    }
+
+    for(int i = 0; i < SIZE; i++){
+        isYellow(&game[try], word[i], secret, i);
     }
 }
 
@@ -27,13 +30,11 @@ int isGreen(Letter * chs, char ch, char secret){
 
 int isYellow(Wordle * game, char ch, char * secret, int i){
     if(!game->chs[i].green){
-        int j = 0;
-        for(; j < SIZE; j++){
-            if(secret[j] == ch && !game->chs[j].green){ // && (ch != game->chs[j].ch)
+        for(int j = 0; j < SIZE; j++){
+            if(secret[j] == ch && !game->chs[j].green){
                 game->chs[i].yellow = 1;
                 return 1;
             }
-
         }
     }
     return 0;
