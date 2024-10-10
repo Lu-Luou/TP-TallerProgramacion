@@ -17,21 +17,10 @@ char* getWord(){
     printf("Ingrese una palabra de 5 letras: \n");
     scanf("%s",word);
     while(strlen(word) != 5){
-        system(CLEAR);
         printf("ERROR: Ingrese una palabra de 5 letras: \n");
         scanf("%5s",word);
     }
     return word;
-}
-
-void debugFlags(Wordle * flags){
-    for(int j = 0; j < SIZE; j ++){
-        printf("%c - %d",
-            flags->chs[j].ch,
-            flags->chs[j].green ? 1 : (flags->chs[j].yellow ? 5 : 0)
-            );
-    }
-    printf("\n");
 }
 
 
@@ -45,27 +34,29 @@ int main(int argc, const char ** argv){
         return 0;
     }       
 
-    char* secret = getSecret(argv);
-    char* word = (char *) malloc(SIZE * sizeof(char));
+    char * secret = getSecret(argv);
+    char * word = (char *) malloc(SIZE * sizeof(char));
 
     Wordle flags[MAX_WORDS];
     start(flags);
 
-    for(int i = 0; i < MAX_WORDS; i ++){
-        //board(flags);
+    int intentos = 0;
+    for(; intentos < MAX_WORDS; intentos ++){
+        //board(flags, intentos);
 
         word = getWord();
 
-        plays(&flags[i], word, secret);
-        //debugFlags(&flags[i]);
+        plays(&flags[intentos], word, secret, intentos);
+        debugFlags(&flags[intentos]);
 
-        if(win(flags)){
-            board(flags);
+        if(win(&flags[intentos])){
+            board(flags, intentos);
             printf("\nWinner!!\n");
             return 0;
         }
     }
-    board(flags);
+
+    board(flags, intentos);
     printf("\nLoser boo boo\n");
 
     free(word);

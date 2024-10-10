@@ -7,6 +7,12 @@
 #define SIZE 5
 #define MAX_WORDS 6
 
+#define RESET   "\x1b[0m"
+#define GREEN   "\x1b[32m"
+#define YELLOW  "\x1b[33m"
+#define CYAN    "\x1b[36m"
+#define BG_RED  "\x1b[41m"
+
 #ifdef _WIN32_
     #define CLEAR "cls"
 #else
@@ -21,21 +27,22 @@ typedef struct letras {
 
 typedef struct palabras {
     Letter chs[SIZE];
-    int try;
 } Wordle;
 
 
 void start(Wordle * game);
 
-void plays(Wordle * game, char * word, char * secret);
+void plays(Wordle * game, char * word, char * secret, int try);
 
-void isGreen(Letter * game, char ch, char secret);
+int isGreen(Letter * game, char ch, char secret);
 
-void isYellow(Wordle * game, char ch, char * secret, int i);
+int isYellow(Wordle * game, char ch, char * secret, int i);
 
-void board(Wordle * flags);
+void board(Wordle * flags, int try);
 
 int win(Wordle * flags);
+
+void debugFlags(Wordle * flags);
 
 
 #endif
