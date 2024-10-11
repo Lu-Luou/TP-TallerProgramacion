@@ -5,6 +5,9 @@
 #include <stdlib.h>     
 #include "ed2.h"
 
+void loadWordsFromFile(MinHeap *heap, const char *filename);
+
+void suggestWord(MinHeap *heap);
 
 
 #endif

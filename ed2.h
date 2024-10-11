@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define WORD_LEN 6
+#define WORD_LEN 6 // 5 + '\0' = 6
 #define MAX_DB_CAP 5000
 
 typedef struct{
@@ -29,10 +29,6 @@ void heapifyDown(MinHeap *heap, int index);
 void insert(MinHeap *heap, const char *word, int priority);
 
 WordData extractMin(MinHeap *heap);
-
-void loadWordsFromFile(MinHeap *heap, const char *filename);
-
-void suggestWord(MinHeap *heap);
 
 
 #endif
