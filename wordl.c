@@ -6,21 +6,20 @@ char* getSecret(char const ** arg){
         return NULL;
     }
 
-    char* str = (char *) malloc(SIZE * sizeof(char));
+    char* str = (char *) malloc(SIZE * sizeof(char) + 1);
     strcpy(str, arg[1]);
     return str;
 }
 
 char* getWord(){
-    char * word = (char *) malloc(SIZE * sizeof(char));
+    char * word = (char *) malloc(SIZE * sizeof(char) + 1);
 
-    printf("Ingrese una palabra de 5 letras: \n");
-    scanf("%s",word);
-    getchar();
+    printf("Introduce una palabra de 5 letras: ");
+    scanf("%s", word);
+
     while(strlen(word) != 5){
         printf("ERROR: Ingrese una palabra de 5 letras: \n");
-        scanf("%5s",word);
-        getchar();
+        scanf("%s",word);
     }
     return word;
 }
@@ -37,22 +36,20 @@ int main(int argc, const char ** argv){
     }       
 
     char * secret = getSecret(argv);
-    char * word = (char *) malloc(SIZE * sizeof(char));
+    char * word;
+    int intentos = 0;
 
     Wordle flags[MAX_WORDS];
     start(flags);
 
-    int intentos = 0;
     for(; intentos < MAX_WORDS; intentos ++){
-        board(flags, intentos);
-
         word = getWord();
 
-        plays(&flags[intentos], word, secret, intentos); //stack smashing when i put at least 2 worse words and then i win the game
+        plays(flags, word, secret, intentos);
         //debugFlags(&flags[intentos]);
+        board(flags, intentos);
 
         if(win(&flags[intentos])){
-            board(flags, intentos);
             printf("\nWinner!!\n");
             return 0;
         }
@@ -61,7 +58,7 @@ int main(int argc, const char ** argv){
     board(flags, intentos);
     printf("\nLoser boo boo\n");
 
-    free(word);
+    //free(word);
     free(secret);
     return 0;
 }
