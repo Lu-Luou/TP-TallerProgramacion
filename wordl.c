@@ -6,13 +6,13 @@ char* getSecret(char const ** arg){
         return NULL;
     }
 
-    char* str = (char *) malloc(SIZE * sizeof(char) + 1);
+    char* str = (char *) malloc(SIZE * sizeof(char) + 1); //contamos el terminador '\0'
     strcpy(str, arg[1]);
     return str;
 }
 
 char* getWord(){
-    char * word = (char *) malloc(SIZE * sizeof(char) + 1);
+    char * word = (char *) malloc(SIZE * sizeof(char) + 1); //contamos el terminador '\0'
 
     printf("Introduce una palabra de 5 letras: ");
     scanf("%s", word);
@@ -51,12 +51,13 @@ int main(int argc, const char ** argv){
 
         if(win(&flags[intentos])){
             printf("\nWinner!!\n");
+            free(word);
+            free(secret);
             return 0;
         }
     }
 
-    board(flags, intentos);
-    printf("\nLoser boo boo\n");
+    printf("\nLoser boo boo\n"); //si no retorna antes, este printf se muestra
 
     free(word);
     free(secret);

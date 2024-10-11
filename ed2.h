@@ -5,28 +5,34 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define SIZE 5
-#define MAX_DB_CAP 1000
+#define WORD_LEN 6
+#define MAX_DB_CAP 5000
 
 typedef struct{
-    char word[SIZE];
+    char word[WORD_LEN];
     int priority;
 } WordData;
 
 typedef struct{
     WordData words[MAX_DB_CAP];
     int size;
-} PriorityQueue;
+} MinHeap;
 
-void initQueue(PriorityQueue * pq);
+void initHeap(MinHeap *heap);
 
-void enqueue(PriorityQueue * pq, const char * word, int prio);
+void swap(WordData *a, WordData *b);
 
-WordData dequeue(PriorityQueue * pq);
+void heapifyUp(MinHeap *heap, int index);
 
-void loadWordsFromFile(PriorityQueue * pq, const char * filename);
+void heapifyDown(MinHeap *heap, int index);
 
-void suggestWord(PriorityQueue * pq);
+void insert(MinHeap *heap, const char *word, int priority);
+
+WordData extractMin(MinHeap *heap);
+
+void loadWordsFromFile(MinHeap *heap, const char *filename);
+
+void suggestWord(MinHeap *heap);
 
 
 #endif

@@ -1,59 +1,106 @@
 #include "ed2.h"
 
-void initQueue(PriorityQueue * pq){
-    pq->size = 0;
+void initHeap(MinHeap * heap){
+    heap->size = 0;
 }
 
-void enqueue(PriorityQueue * pq, const char * word, int prio){
-    if(pq->size >= MAX_DB_CAP){
-        printf("La cola de prioridad está llena.\n");
+void swap(WordData * a, WordData * b){
+    WordData temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+// Funcion para "flotar" un nodo en el heap
+void heapifyUp(MinHeap * heap, int index){
+    if(index == 0) return;
+
+    int parentIndex = (index - 1) / 2;
+    if(strcmp(heap->words[index].word, heap->words[parentIndex].word) < 0){
+        swap(&heap->words[index], &heap->words[parentIndex]);
+        heapifyUp(heap, parentIndex);
+    }
+}
+
+// Funcion para "hundir" un nodo en el heap
+void heapifyDown(MinHeap * heap, int index){
+    int leftChild = 2 * index + 1;
+    int rightChild = 2 * index + 2;
+    int smallest = index;
+
+    if(leftChild < heap->size && strcmp(heap->words[leftChild].word, heap->words[smallest].word) < 0){
+        smallest = leftChild;
+    }
+    if(rightChild < heap->size && strcmp(heap->words[rightChild].word, heap->words[smallest].word) < 0){
+        smallest = rightChild;
+    }
+    if(smallest != index){
+        swap(&heap->words[index], &heap->words[smallest]);
+        heapifyDown(heap, smallest);
+    }
+}
+
+void insert(MinHeap * heap, const char * word, int priority){
+    if(heap->size >= MAX_DB_CAP){
+        printf("El heap esta lleno.\n");
         return;
     }
 
     WordData newWord;
-    strncpy(newWord.word, word, SIZE);
-    newWord.priority = prio;
+    strncpy(newWord.word, word, WORD_LEN);
+    newWord.priority = priority;
 
-    int i = pq->size - 1;
-    while(i >= 0 && pq->words[i].priority < prio){
-        pq->words[i + 1] = pq->words[i];
-        i--;
-    }
-    pq->words[i + 1] = newWord;
-    pq->size++;
+    heap->words[heap->size] = newWord;
+    heapifyUp(heap, heap->size);
+    heap->size++;
 }
 
-WordData dequeue(PriorityQueue * pq){
-    if(pq->size == 0){
-        printf("La cola de prioridad está vacía.\n");
+WordData extractMin(MinHeap * heap){
+    if(heap->size == 0){
+        printf("El heap esta vacio.\n");
         WordData empty = {"", -1};
         return empty;
     }
-    return pq->words[--pq->size];
+
+    WordData minWord = heap->words[0];
+    heap->words[0] = heap->words[--heap->size];
+    heapifyDown(heap, 0);
+
+    return minWord;
 }
 
-void loadWordsFromFile(PriorityQueue * pq, const char * filename){
-    FILE *file = fopen(filename, "r");
+void loadWordsFromFile(MinHeap * heap, const char * filename){
+    FILE * file = fopen(filename, "r");
     if(!file){
         perror("No se pudo abrir el archivo");
         return;
     }
 
-    char word[SIZE];
+    char word[WORD_LEN];
     int priority;
     while(fscanf(file, "%5[^,],%d\n", word, &priority) == 2){
-        enqueue(pq, word, priority);
+        insert(heap, word, priority);
     }
 
     fclose(file);
 }
 
-void suggestWord(PriorityQueue * pq){
-    if(pq->size == 0){
-        printf("No hay palabras en la cola.\n");
+// Funcion que va a sugerir la palabra alfabeticamente menor
+void suggestWord(MinHeap * heap){
+    if(heap->size == 0){
+        printf("No hay palabras en el heap.\n");
         return;
     }
-    //necesitaríamos armar un filtro antes de desencolar la palabra con mayor prioridad
-    WordData bestWord = dequeue(pq);
-    printf("Sugerencia de palabra: %s (prioridad %d)\n", bestWord.word, bestWord.priority);
+
+    WordData bestWord = extractMin(heap);
+    printf("Sugerencia de palabra: %s (indice %d)\n", bestWord.word, bestWord.priority);
+}
+
+int main(void){ //testing
+    MinHeap heap;
+    initHeap(&heap);
+    loadWordsFromFile(&heap, "DB/3.txt"); // nombre/del/directorio/archivo.txt
+
+    suggestWord(&heap);
+
+    return 0;
 }
