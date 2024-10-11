@@ -58,7 +58,7 @@ int main(int argc, const char ** argv){
     board(flags, intentos);
     printf("\nLoser boo boo\n");
 
-    //free(word);
+    free(word);
     free(secret);
     return 0;
 }
