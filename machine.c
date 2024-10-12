@@ -16,17 +16,61 @@ void loadWordsFromFile(MinHeap * heap, const char * filename){
     fclose(file);
 }
 
-// Funcion que va a sugerir la palabra alfabeticamente menor
-// Se necesita armar alguna clase de "filtro" para que sugiera la palabra en base a un "Wordle game" especifico
-void suggestWord(MinHeap * heap){
-    if(heap->size == 0){
-        printf("No hay palabras en el heap.\n");
-        return;
+// REVISAR
+int isValidWord(const WordData *wordData, const Wordle *game){
+    for(int i = 0; i < SIZE; i++){
+        char letter = wordData->word[i];
+
+        if(game->chs[i].green && letter != game->chs[i].ch){
+            return 0;
+        }
+
+        if(game->chs[i].yellow){
+            int found = 0;
+            for(int j = 0; j < SIZE; j++){
+                if(wordData->word[j] == game->chs[i].ch && i != j){
+                    found = 1;
+                    break;
+                }
+            }
+            if(!found){
+                return 0;
+            }
+        }
+
+        if(!game->chs[i].green && !game->chs[i].yellow){
+            for(int j = 0; j < SIZE; j++){
+                if(wordData->word[j] == game->chs[i].ch){
+                    return 0;
+                }
+            }
+        }
+    }
+    return 1;
+}
+
+// REVISAR
+void suggestWord(MinHeap *heap, const Wordle *game){
+    WordData bestWord;
+    int found = 0;
+
+    while (heap->size > 0) {
+        WordData candidateWord = extractMin(heap);
+
+        if (isValidWord(&candidateWord, game)) {
+            bestWord = candidateWord;
+            found = 1;
+            break;
+        }
     }
 
-    WordData bestWord = extractMin(heap);
-    printf("Sugerencia de palabra: %s (indice %d)\n", bestWord.word, bestWord.priority);
+    if (found) {
+        printf("Sugerencia de palabra: %s (frecuencia %d)\n", bestWord.word, bestWord.priority);
+    } else {
+        printf("No se encontro una palabra que cumpla con las reglas de Wordle.\n");
+    }
 }
+
 
 /*int main(void){ //testing
     MinHeap heap;

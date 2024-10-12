@@ -42,12 +42,17 @@ int main(int argc, const char ** argv){
     Wordle flags[MAX_WORDS];
     start(flags);
 
+    MinHeap heap;
+    initHeap(&heap);
+    loadWordsFromFile(&heap, "DB/3.txt");
+
     for(; intentos < MAX_WORDS; intentos ++){
         word = getWord();
 
         plays(flags, word, secret, intentos);
         //debugFlags(&flags[intentos]);
         board(flags, intentos);
+        suggestWord(&heap, &flags[intentos]);
 
         if(win(&flags[intentos])){
             printf("\nWinner!!\n");
