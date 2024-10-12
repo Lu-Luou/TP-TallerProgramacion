@@ -35,14 +35,6 @@ int isValidWord(const WordData * wordData, const Wordle * game){
                 return 0;
             }
         }
-
-        if(!game->chs[i].green && !game->chs[i].yellow){ //filtra las letras grices
-            for(int j = 0; j < SIZE; j++){
-                if(wordData->word[j] == game->chs[i].ch){
-                    return 0;
-                }
-            }
-        }
     }
     return 1;
 }
