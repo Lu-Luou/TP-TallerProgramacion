@@ -1,4 +1,4 @@
-#include "ed1.h"
+#include "wordle.h"
 
 void start(Wordle *game) {
     for (int i = 0; i < MAX_WORDS; i++){

@@ -1,5 +1,5 @@
-#ifndef __ED2_H__
-#define __ED2_H__
+#ifndef __MAXHEAP_H__
+#define __MAXHEAP_H__
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -16,19 +16,19 @@ typedef struct{
 typedef struct{
     WordData words[MAX_DB_CAP];
     int size;
-} MinHeap;
+} MaxHeap;
 
-void initHeap(MinHeap *heap);
+void initHeap(MaxHeap *heap);
 
 void swap(WordData *a, WordData *b);
 
-void heapifyUp(MinHeap *heap, int index);
+void heapifyUp(MaxHeap *heap, int index);
 
-void heapifyDown(MinHeap *heap, int index);
+void heapifyDown(MaxHeap *heap, int index);
 
-void insert(MinHeap *heap, const char *word, int priority);
+void insert(MaxHeap *heap, const char *word, int priority);
 
-WordData extractMin(MinHeap *heap);
+WordData extractMax(MaxHeap *heap);
 
 
 #endif

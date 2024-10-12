@@ -1,23 +1,23 @@
 #usar make / make clean
 CC = gcc
 CFLAGS = -Wall -g
-OBJETS = wordl.o machine.o ed1.o ed2.o
+OBJETS = main.o machine.o wordle.o maxHeap.o
 TARGET = ourWordle
 
 $(TARGET): $(OBJETS)
 	$(CC) $(CFLAGS) -o $(TARGET) $(OBJETS)
 
-wordl.o: wordl.c
-	$(CC) $(CFLAGS) -c wordl.c
+wordl.o: main.c
+	$(CC) $(CFLAGS) -c main.c
 
 machine.o: machine.c
 	$(CC) $(CFLAGS) -c machine.c
 
-ed1.o: ed1.c
-	$(CC) $(CFLAGS) -c ed1.c
+ed1.o: wordle.c
+	$(CC) $(CFLAGS) -c wordle.c
 
-ed2.o: ed2.c
-	$(CC) $(CFLAGS) -c ed2.c
+ed2.o: maxHeap.c
+	$(CC) $(CFLAGS) -c maxHeap.c
 
 clean:
 	rm -f $(OBJETS) $(TARGET)

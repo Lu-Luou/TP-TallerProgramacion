@@ -1,6 +1,6 @@
 #include "machine.h"
 
-void loadWordsFromFile(MinHeap * heap, const char * filename){
+void loadWordsFromFile(MaxHeap * heap, const char * filename){
     FILE * file = fopen(filename, "r");
     if(!file){
         perror("No se pudo abrir el archivo");
@@ -17,7 +17,7 @@ void loadWordsFromFile(MinHeap * heap, const char * filename){
 }
 
 // REVISAR
-int isValidWord(const WordData *wordData, const Wordle *game){
+int isValidWord(const WordData * wordData, const Wordle * game){
     for(int i = 0; i < SIZE; i++){
         char letter = wordData->word[i];
 
@@ -27,10 +27,9 @@ int isValidWord(const WordData *wordData, const Wordle *game){
 
         if(game->chs[i].yellow){
             int found = 0;
-            for(int j = 0; j < SIZE; j++){
+            for(int j = 0; j < SIZE && !found; j++){
                 if(wordData->word[j] == game->chs[i].ch && i != j){
                     found = 1;
-                    break;
                 }
             }
             if(!found){
@@ -49,31 +48,29 @@ int isValidWord(const WordData *wordData, const Wordle *game){
     return 1;
 }
 
-// REVISAR
-void suggestWord(MinHeap *heap, const Wordle *game){
+void suggestWord(MaxHeap * heap, const Wordle * game){
     WordData bestWord;
     int found = 0;
 
-    while (heap->size > 0) {
-        WordData candidateWord = extractMin(heap);
+    while(heap->size > 0 && !found){ //found(); (?
+        WordData candidateWord = extractMax(heap);
 
-        if (isValidWord(&candidateWord, game)) {
+        if(isValidWord(&candidateWord, game)){
             bestWord = candidateWord;
             found = 1;
-            break;
         }
     }
 
-    if (found) {
+    if(found){
         printf("\nSugerencia de palabra: %s (frecuencia %d)\n\n", bestWord.word, bestWord.priority);
-    } else {
+    } else{
         printf("\nNo es posible proporcionar una sugerencia =[\n\n");
     }
 }
 
 
 /*int main(void){ //testing
-    MinHeap heap;
+    MaxHeap heap;
     initHeap(&heap);
     loadWordsFromFile(&heap, "DB/3.txt"); // nombre/del/directorio/archivo.txt
 

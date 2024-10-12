@@ -1,4 +1,4 @@
-#include "wordl.h"
+#include "main.h"
 
 char* getSecret(char const ** arg){
     if(strlen(arg[1]) != SIZE){
@@ -42,7 +42,7 @@ int main(int argc, const char ** argv){
     Wordle flags[MAX_WORDS];
     start(flags);
 
-    MinHeap heap;
+    MaxHeap heap;
     initHeap(&heap);
     loadWordsFromFile(&heap, "DB/3.txt");
 

@@ -1,5 +1,5 @@
-#ifndef __ED1_H__
-#define __ED1_H__
+#ifndef __WORDLE_H__
+#define __WORDLE_H__
 
 #include <stdio.h>
 #include <stdlib.h>

@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
-#include "ed1.h"
+#include "wordle.h"
 #include "machine.h"
 
 /*

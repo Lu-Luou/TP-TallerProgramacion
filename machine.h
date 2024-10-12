@@ -3,15 +3,15 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "ed1.h"
-#include "ed2.h"
+#include "wordle.h"
+#include "maxHeap.h"
 
 
-void loadWordsFromFile(MinHeap *heap, const char *filename);
+void loadWordsFromFile(MaxHeap *heap, const char *filename);
 
 int isValidWord(const WordData *wordData, const Wordle *game);
 
-void suggestWord(MinHeap *heap, const Wordle *game);
+void suggestWord(MaxHeap *heap, const Wordle *game);
 
 
 #endif
