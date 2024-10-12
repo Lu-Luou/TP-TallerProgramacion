@@ -47,14 +47,14 @@ int isValidWord(const WordData * wordData, const Wordle * game){
     return 1;
 }
 
-void suggestWord(MaxHeap * heap, const Wordle * game){
+void suggestWord(MaxHeap * heap, const Wordle * game, int attemps){
     WordData bestWord;
     int found = 0;
 
     while(heap->size > 0 && !found){
         WordData candidateWord = extractMax(heap);
 
-        if(isValidWord(&candidateWord, game)){
+        if(isValidWord(&candidateWord, &game[attemps])){
             bestWord = candidateWord;
             found = 1;
         }

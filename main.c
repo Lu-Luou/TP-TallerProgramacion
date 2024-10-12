@@ -50,14 +50,15 @@ int main(int argc, const char ** argv){
         word = getWord();
 
         plays(flags, word, secret, intentos);
+        free(word);
         //debugFlags(&flags[intentos]);
         board(flags, intentos);
-        suggestWord(&heap, &flags[intentos]);
+        suggestWord(&heap, flags, intentos);
 
         if(win(&flags[intentos])){
             board(flags, intentos);
             printf("\nWinner!!\n");
-            free(word);
+
             free(secret);
             return 0;
         }
