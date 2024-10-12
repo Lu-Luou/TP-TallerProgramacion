@@ -10,7 +10,8 @@ void swap(WordData * a, WordData * b){
     *b = temp;
 }
 
-/* Funcion para "flotar" un nodo en el heap
+/* Funciones antiguas que ordenaban el heap de forma alfabetica en vez de por prioridad
+ * Esto se dejo por su mala eficiencia en la practica al jugar el wordle
 void heapifyUp(MinHeap * heap, int index){
     if(index == 0) return;
 
@@ -20,9 +21,7 @@ void heapifyUp(MinHeap * heap, int index){
         heapifyUp(heap, parentIndex);
     }
 }
-*/
 
-/* Funcion para "hundir" un nodo en el heap
 void heapifyDown(MinHeap * heap, int index){
     int leftChild = 2 * index + 1;
     int rightChild = 2 * index + 2;

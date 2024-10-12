@@ -65,9 +65,9 @@ void suggestWord(MinHeap *heap, const Wordle *game){
     }
 
     if (found) {
-        printf("Sugerencia de palabra: %s (frecuencia %d)\n", bestWord.word, bestWord.priority);
+        printf("\nSugerencia de palabra: %s (frecuencia %d)\n\n", bestWord.word, bestWord.priority);
     } else {
-        printf("No se encontro una palabra que cumpla con las reglas de Wordle.\n");
+        printf("\nNo es posible proporcionar una sugerencia =[\n\n");
     }
 }
 

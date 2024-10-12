@@ -55,6 +55,7 @@ int main(int argc, const char ** argv){
         suggestWord(&heap, &flags[intentos]);
 
         if(win(&flags[intentos])){
+            board(flags, intentos);
             printf("\nWinner!!\n");
             free(word);
             free(secret);
@@ -62,6 +63,7 @@ int main(int argc, const char ** argv){
         }
     }
 
+    board(flags, --intentos);
     printf("\nLoser boo boo\n"); //si no retorna antes, este printf se muestra
 
     free(word);
