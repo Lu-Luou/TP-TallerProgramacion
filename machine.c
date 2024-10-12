@@ -16,16 +16,15 @@ void loadWordsFromFile(MaxHeap * heap, const char * filename){
     fclose(file);
 }
 
-// REVISAR
 int isValidWord(const WordData * wordData, const Wordle * game){
     for(int i = 0; i < SIZE; i++){
         char letter = wordData->word[i];
 
-        if(game->chs[i].green && letter != game->chs[i].ch){
+        if(game->chs[i].green && letter != game->chs[i].ch){ //filtra las letras verdes
             return 0;
         }
 
-        if(game->chs[i].yellow){
+        if(game->chs[i].yellow){ // filtra las letras amarillas
             int found = 0;
             for(int j = 0; j < SIZE && !found; j++){
                 if(wordData->word[j] == game->chs[i].ch && i != j){
@@ -37,7 +36,7 @@ int isValidWord(const WordData * wordData, const Wordle * game){
             }
         }
 
-        if(!game->chs[i].green && !game->chs[i].yellow){
+        if(!game->chs[i].green && !game->chs[i].yellow){ //filtra las letras grices
             for(int j = 0; j < SIZE; j++){
                 if(wordData->word[j] == game->chs[i].ch){
                     return 0;
@@ -52,7 +51,7 @@ void suggestWord(MaxHeap * heap, const Wordle * game){
     WordData bestWord;
     int found = 0;
 
-    while(heap->size > 0 && !found){ //found(); (?
+    while(heap->size > 0 && !found){
         WordData candidateWord = extractMax(heap);
 
         if(isValidWord(&candidateWord, game)){
@@ -67,15 +66,3 @@ void suggestWord(MaxHeap * heap, const Wordle * game){
         printf("\nNo es posible proporcionar una sugerencia =[\n\n");
     }
 }
-
-
-/*int main(void){ //testing
-    MaxHeap heap;
-    initHeap(&heap);
-    loadWordsFromFile(&heap, "DB/3.txt"); // nombre/del/directorio/archivo.txt
-
-    suggestWord(&heap);
-
-    return 0;
-}
-*/
