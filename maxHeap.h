@@ -18,6 +18,7 @@ typedef struct{
     int size;
 } MaxHeap;
 
+
 void initHeap(MaxHeap *heap);
 
 void swap(WordData *a, WordData *b);

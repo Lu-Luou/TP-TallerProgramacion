@@ -9,37 +9,6 @@ void swap(WordData * a, WordData * b){
     *a = *b;
     *b = temp;
 }
-
-/* Funciones antiguas que ordenaban el heap de forma alfabetica en vez de por prioridad
- * Esto se dejo por su mala eficiencia en la practica al jugar el wordle
-void heapifyUp(MinHeap * heap, int index){
-    if(index == 0) return;
-
-    int parentIndex = (index - 1) / 2;
-    if(strcmp(heap->words[index].word, heap->words[parentIndex].word) < 0){
-        swap(&heap->words[index], &heap->words[parentIndex]);
-        heapifyUp(heap, parentIndex);
-    }
-}
-
-void heapifyDown(MinHeap * heap, int index){
-    int leftChild = 2 * index + 1;
-    int rightChild = 2 * index + 2;
-    int smallest = index;
-
-    if(leftChild < heap->size && strcmp(heap->words[leftChild].word, heap->words[smallest].word) < 0){
-        smallest = leftChild;
-    }
-    if(rightChild < heap->size && strcmp(heap->words[rightChild].word, heap->words[smallest].word) < 0){
-        smallest = rightChild;
-    }
-    if(smallest != index){
-        swap(&heap->words[index], &heap->words[smallest]);
-        heapifyDown(heap, smallest);
-    }
-}
-*/
-
 // Funcion para "flotar" un nodo en el heap
 void heapifyUp(MaxHeap *heap, int index) {
     if (index == 0) return;

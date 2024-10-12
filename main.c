@@ -48,6 +48,7 @@ int main(int argc, const char ** argv){
 
     for(; intentos < MAX_WORDS; intentos ++){
         word = getWord();
+        addUsedWord(word);
 
         plays(flags, word, secret, intentos);
         free(word);
