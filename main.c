@@ -67,7 +67,6 @@ int main(int argc, const char ** argv){
     board(flags, --intentos);
     printf("\nLoser boo boo\n"); //si no retorna antes, este printf se muestra
 
-    free(word);
     free(secret);
     return 0;
 }
