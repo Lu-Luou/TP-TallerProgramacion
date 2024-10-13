@@ -20,46 +20,47 @@ void loadWordsFromFile(MaxHeap * heap, const char * filename){
     fclose(file);
 }
 
-void addUsedWord(const char *word) {
-    if (usedWordsCount < MAX_WORDS) {
+void addUsedWord(const char * word){
+    if(usedWordsCount < MAX_WORDS){
         strncpy(usedWords[usedWordsCount], word, WORD_LEN);
         usedWordsCount++;
     }
 }
 
-int isWordUsed(const char *word) {
-    for (int i = 0; i < usedWordsCount; i++) {
-        if (strcmp(usedWords[i], word) == 0) {
+int isWordUsed(const char * word){
+    for(int i = 0; i < usedWordsCount; i++){
+        if(strcmp(usedWords[i], word) == 0){
             return 1;
         }
     }
     return 0;
 }
 
-int isValidWord(const WordData *wordData, const Wordle *game) {
-    if (isWordUsed(wordData->word)) {
+int isValidWord(const WordData * wordData, const Wordle * game){
+    if(isWordUsed(wordData->word)){
         return 0;
     }
-    for (int i = 0; i < SIZE; i++) {
+    for(int i = 0; i < SIZE; i++){
         char letter = wordData->word[i];
 
-        if (game->chs[i].green && letter != game->chs[i].ch) { // Filtra las letras verdes
+        if(game->chs[i].green && letter != game->chs[i].ch){ // Filtra las letras verdes
             return 0;
         }
 
-        if (game->chs[i].yellow) { // Filtra las letras amarillas
+        if(game->chs[i].yellow){ // Filtra las letras amarillas
             int found = 0;
-            for (int j = 0; j < SIZE && !found; j++) {
-                if (wordData->word[j] == game->chs[i].ch && i != j) {
+
+            for(int j = 0; j < SIZE && !found; j++){
+                if(wordData->word[j] == game->chs[i].ch && i != j){
                     found = 1;
                 }
             }
-            if (!found) {
+
+            if(!found){
                 return 0;
             }
         }
     }
-
     return 1;
 }
 

@@ -32,15 +32,15 @@ typedef struct palabras {
 
 void start(Wordle * game);
 
-void plays(Wordle * game, char * word, char * secret, int try);
+void plays(Wordle * game, const char * word, const char * secret, int try);
 
-int isGreen(Letter * game, char ch, char secret);
+int isGreen(Letter * game, const char ch, const char secret);
 
-int isYellow(Wordle * game, char ch, char * secret, int i);
+int isYellow(Wordle * game, const char ch, const char * secret, int i);
 
-void board(Wordle * flags, int try);
+void board(const Wordle * flags, int try);
 
-int win(Wordle * flags);
+int win(const Wordle * flags);
 
 void debugFlags(Wordle * flags);
 

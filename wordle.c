@@ -10,7 +10,7 @@ void start(Wordle *game) {
     }
 }
 
-void plays(Wordle * game, char * word, char * secret, int try){
+void plays(Wordle * game, const char * word, const char * secret, int try){
     for(int i = 0; i < SIZE; i++){
         game[try].chs[i].ch = word[i];
         isGreen(&game[try].chs[i], word[i], secret[i]);
@@ -21,13 +21,13 @@ void plays(Wordle * game, char * word, char * secret, int try){
     }
 }
 
-int isGreen(Letter * chs, char ch, char secret){
+int isGreen(Letter * chs, const char ch, char secret){
     if(ch == secret)
         chs->green = 1;
     return chs->green;
 }
 
-int isYellow(Wordle * game, char ch, char * secret, int i){
+int isYellow(Wordle * game, const char ch, const char * secret, int i){
     if(!game->chs[i].green){
         for(int j = 0; j < SIZE; j++){
             if(secret[j] == ch && !game->chs[j].green){
@@ -39,7 +39,7 @@ int isYellow(Wordle * game, char ch, char * secret, int i){
     return 0;
 }
 
-void board(Wordle * game, int try){
+void board(const Wordle * game, int try){
     system(CLEAR);
     printf(BG_RED "Intentos restantes: %d\n" RESET, MAX_WORDS - try);
 
@@ -59,7 +59,7 @@ void board(Wordle * game, int try){
     }
 }
 
-int win(Wordle * flags){
+int win(const Wordle * flags){
     for (int i = 0; i < SIZE; i++){
         if (!flags->chs[i].green){
             return 0;
