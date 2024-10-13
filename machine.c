@@ -74,6 +74,7 @@ void suggestWord(MaxHeap * heap, const Wordle * game, int attempts){
             insert(&auxHeap, candidateWord.word, candidateWord.priority);
         }
     }
+
     *heap = auxHeap;
 
     if(auxHeap.size > 0){

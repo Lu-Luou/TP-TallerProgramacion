@@ -44,7 +44,7 @@ int main(int argc, const char ** argv){
 
     MaxHeap heap;
     initHeap(&heap);
-    loadWordsFromFile(&heap, "DB/3.txt");
+    loadWordsFromFile(&heap, "DB/3.txt"); // "direccion/del/archivo.txt"
 
     for(; intentos < MAX_WORDS; intentos ++){
         word = getWord();

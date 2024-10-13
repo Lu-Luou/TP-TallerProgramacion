@@ -73,7 +73,7 @@ void debugFlags(Wordle * flags){
         printf("%c - %d  ",
             flags->chs[j].ch,
             flags->chs[j].green ? 1 : (flags->chs[j].yellow ? 5 : 0)
-            );
+            ); // 1 para represnetar verde, 5 para el amarillo, 0 para grices
     }
     printf("\n");
 }
