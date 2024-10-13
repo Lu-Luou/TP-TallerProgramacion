@@ -1,5 +1,5 @@
-# Wordle - Trabajo Práctico
-## Franco Mondino, Lucas Ruberto
+# Wordle - Trabajo Práctico - Taller de Programación
+## Franco Mondino & Lucas Ruberto
 ## Descripción del proyecto
 
 Este consiste en la implementación de una versión del juego **Wordle**, donde el objetivo es adivinar una palabra de 5 letras en un máximo de 6 intentos. Además, del desarrollo de un jugador virtual que ofrece sugerencia de palabras basándose en su frecuencia en el idioma.
