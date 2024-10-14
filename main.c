@@ -26,6 +26,7 @@ char* getWord(){
 
 
 int main(int argc, const char ** argv){
+    system(CLEAR);
     if(argc < 1){
         printf("Se necesita una palabra de 5 letras");
         return 0;
