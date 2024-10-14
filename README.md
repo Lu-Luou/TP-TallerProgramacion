@@ -1,20 +1,23 @@
-# Wordle - Trabajo Práctico - Taller de Programación
-## Franco Mondino & Lucas Ruberto
-## Descripción del proyecto
+# Wordle - Trabajo Práctico
 
-Este consiste en la implementación de una versión del juego **Wordle**, donde el objetivo es adivinar una palabra de 5 letras en un máximo de 6 intentos. Además, del desarrollo de un jugador virtual que ofrece sugerencia de palabras basándose en su frecuencia en el idioma.
+### Franco Mondino, Lucas Ruberto
+
+![Logo Wordle](/DB/images.png)
+
+## Descripción del proyecto
+---
+Este proyecto consiste en la implementación de una versión del juego **Wordle**, donde el objetivo es adivinar una palabra de 5 letras en un máximo de 6 intentos. Además, se implementa un "jugador virtual" que elige palabras basándose en su frecuencia en el idioma castellano.
 
 ### Estructura del juego
 
-1. **Letras correctas en la posición correcta** se muestran en <font color="green">**verde**</font>.
-2. **Letras correctas en posición incorrecta** se muestran en <font color="yellow">**amarillo**</font>.
-3. **Letras incorrectas** se muestran en <font color="gray">**gris**</font>.
-
+1. **Letras correctas en la posición correcta** se muestran en **verde**.
+2. **Letras correctas en posición incorrecta** se muestran en **amarillo**.
+3. **Letras incorrectas** se muestran en **gris**.
 
 El proyecto se divide en dos módulos principales:
 
-1. **Módulo Jugable**: Implementa el entorno para que un jugador humano juegue adivinando palabras.
-2. **Módulo Jugador Virtual**: Un jugador automático que elige palabras de una base de datos.
+1. **Módulos Jugable**: Implementa el entorno para que un jugador humano juegue adivinando palabras.
+2. **Módulos Jugador Virtual**: Un jugador automático que sugiere palabras según una base de datos.
 
 ## Archivos del proyecto
 
@@ -33,27 +36,44 @@ El proyecto se divide en dos módulos principales:
 
 2. Para ejecutar el juego:
     ```bash
-    ./wordle <palabra_secreta>
+    ./ourWordle <palabra_secreta>
     ```
 
-## Observaciones sobre la implementación
+3. Para limpiar los archivos compilados:
+    ```bash
+    make clean
+    ```
 
-- El jugador virtual selecciona las palabras de una base de datos, eligiendo la palabra con mayor frecuencia según el archivo proporcionado.
-- Si no es posible adivinar la palabra en 6 intentos, el juego muestra un mensaje de derrota.
-- Si el jugador virtual se queda sin opciones, se termina la partida.
+## Estructuras de datos
+
+### *ED "wordle"*
+Se utilizó un **arreglo de "Letter"** donde cada letra almacena su respectivo caracter con el que forma una palabra, una bandera por si es una letra amarilla y otra bandera por si es ser verde.
+Con esto nos ayuda a referenciar la correctitud de la palabra a adivinar, si la letra no es de ningún color se la toma como gris.
+
+
+### *ED "machine"*
+Se utilizó un **MaxHeap** para cargar una base de datos con las palabras y su frecuencia, optimizando el proceso de selección de la siguiente palabra a adivinar.
+Para ir guardando las posibles palabras que pueda llegar a recomendar el jugador virtual, se van extrayendo las que sean validas y luego se las almacenan en otro heap auxiliar, el cual es referenciado al heap principal para que pueda volver a ser filtrado.
+
 
 ## Base de datos
 
 La base de datos utilizada contiene palabras de 5 letras y su frecuencia de uso en el idioma castellano. Un ejemplo:
 
-* ***Letra, 3***
-* ***Casas, 5***
-* ***Perro, 5***
+* ***Letra,3***
+* ***Casas,5***
+* ***Perro,5***
 
 
-El criterio de desempate entre palabras de la misma frecuencia es alfabético.
+El criterio de desempate entre palabras de la misma frecuencia es alfabético, toma la primera palabra que encuentra de las 2 con mismo índice.
+La base de datos esta ordenada alfabéticamente, al cargarse las palabras con el mismo índice, van a estar con el mismo orden.
 
-## Estructuras de datos
+## Observaciones sobre la implementación
 
-Se utilizó un **MaxHeap** para mantener las palabras de mayor frecuencia en la parte superior, optimizando el proceso de selección de la siguiente palabra a adivinar.
+- El jugador virtual selecciona las palabras de una base de datos, prefiriendo una palabra con mayor frecuencia según el archivo proporcionado.
+- Se decidio implementar una estructura minimalista para atribuirle un color (verde, amarillo o ninguno) a cada letra de cada palabra ingresada en el wordle.
+- Si no es posible adivinar la palabra en 6 intentos, el juego muestra un mensaje de derrota, en caso contrario se muestra un mensaje de victoria.
+- Si el jugador virtual se queda sin posibles sugerencias, muestra un aviso al respecto.
 
+---
+---
